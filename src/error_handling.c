@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
+/*   By: mknoll <mknoll@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 09:34:27 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/02/18 09:39:07 by moritzknoll      ###   ########.fr       */
+/*   Updated: 2025/02/18 10:19:28 by mknoll           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@
 // these examples should return "Error\n"
 // ./push_swap "95 99 -9 10 9"
 // this example should work because -9 & 9 are not equal
-
 // The program should work with INT MAX & INT MIN
 // ./push_swap 2147483647 2 4 7
 // ./push_swap 99 -2147483648 23 545

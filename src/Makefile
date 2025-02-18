@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -I../libft
 LDFLAGS = -L../libft -lft
-SRC = swap_operations.c push_operations.c rotate_operations.c
+SRC = swap_operations.c push_operations.c rotate_operations.c main.c rrotate_operations.c main_utils.c
 OBJ = $(SRC:.c=.o)
 NAME = push_swap
 

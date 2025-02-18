@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   pushswap.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
+/*   By: mknoll <mknoll@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 10:35:17 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/02/17 12:29:57 by moritzknoll      ###   ########.fr       */
+/*   Updated: 2025/02/18 14:42:16 by mknoll           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-#define PUSH_SWAP_H
+#ifndef PUSHSWAP_H
+# define PUSHSWAP_H
 
 # include "../libft/libft.h"
 
@@ -23,12 +23,11 @@ void	ft_lstadd_back(t_list **stack, t_list *new);
 void	printList(t_list *head);
 int		ft_lstsize(t_list *head);
 
-
 //instruction functions
 int		swap(t_list **stack);
 int		push(t_list **stack_to, t_list **stack_from);
 int		rotate(t_list **stack);
-int		reverseRotate(t_list **stack);
+int		reverse_rotate(t_list **stack);
 
 int		sa(t_list **stack_a);
 int		sb(t_list **stack_b);
@@ -41,4 +40,12 @@ int		rr(t_list **stack_a, t_list **stack_b);
 int		rra(t_list **stack_a);
 int		rrb(t_list **stack_b);
 int		rrr(t_list **stack_a, t_list **stack_b);
+
+int		check_duplicate(int *numbers, int len);
+int		check_number(char *str);
+void	free_tab(char **arr);
+int		get_arr_size(char *result);
+int		*parsing_str(int *arr_size, char *str);
+int		*parsing_args(int *arr_size, int argc, char *argv[]);
+
 #endif
