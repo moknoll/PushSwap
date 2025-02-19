@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mknoll <mknoll@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 09:34:12 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/02/18 14:46:54 by mknoll           ###   ########.fr       */
+/*   Updated: 2025/02/19 10:34:37 by moritzknoll      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,31 +39,43 @@ int	*parsing_str(int *arr_size, char *str)
 	return (numbers);
 }
 
+int *convert_and_check(char **result, int *numbers, int *j)
+{
+	int k;
+
+	k = 0;
+	while (result[k])
+	{
+		if (!check_number(result[k])
+				|| !check_int_range(result[k]))
+			return (free_tab(result), free(numbers), NULL);
+		numbers[*j] = ft_atoi(result[k]);
+		free(result[k]);
+		(*j)++;
+		k++;
+	}
+	free(result);
+	return (numbers);
+}
+
 int	*parsing_args(int *arr_size, int argc, char *argv[])
 {
 	char	**result;
 	int		*numbers;
-	int		i = 1;
-	int		j = 0;
-	int		k;
+	int		i;
+	int		j;
 
+	i = 1;
+	j = 0;
 	numbers = malloc(sizeof(int) * (argc - 1));
 	if (!numbers)
 		return (NULL);
 	while (i < argc)
 	{
 		result = ft_split(argv[i], ' ');
-		if (!result)
+		numbers = convert_and_check(result, numbers, &j);
+		if (!result || !(numbers))
 			return (NULL);
-		k = 0;
-		while (result[k])
-		{
-			numbers[j] = ft_atoi(result[k]);
-			free(result[k]);
-			j++;
-			k++;
-		}
-		free(result);
 		i++;
 	}
 	*arr_size = j;
@@ -90,9 +102,9 @@ int main(int argc, char *argv[])
 		numbers = parsing_args(&size, argc, argv);
 
 	// Debug-Ausgabe
-	for (int i = 0; i < size; i++)
-		printf("%d ", numbers[i]);
-	printf("\n");
+	// for (int i = 0; i < size; i++)
+	// 	printf("%d ", numbers[i]);
+	// printf("\n");
 
 	free(numbers);
 	return 0;

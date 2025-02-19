@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pushswap.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mknoll <mknoll@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 10:35:17 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/02/18 14:42:16 by mknoll           ###   ########.fr       */
+/*   Updated: 2025/02/19 10:34:58 by moritzknoll      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PUSHSWAP_H
 
 # include "../libft/libft.h"
+# include <limits.h>
 
 // Util functions
 t_list	*ft_lstnew(int value);
@@ -47,5 +48,8 @@ void	free_tab(char **arr);
 int		get_arr_size(char *result);
 int		*parsing_str(int *arr_size, char *str);
 int		*parsing_args(int *arr_size, int argc, char *argv[]);
+int		*convert_and_check(char **result, int *numbers, int *j);
+int		check_int_range(char *str);
+long	ft_atol(char *str);
 
 #endif

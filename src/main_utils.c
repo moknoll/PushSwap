@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mknoll <mknoll@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 13:02:45 by mknoll            #+#    #+#             */
-/*   Updated: 2025/02/18 13:03:15 by mknoll           ###   ########.fr       */
+/*   Updated: 2025/02/19 10:36:10 by moritzknoll      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,49 @@ int	check_number(char *str)
 	{
 		if (str[i] < '0' || str[i] > '9')
 		{
-			perror("Error\n");
+			ft_putendl_fd("Error not a number", 1);
 			return (0);
 		}
 		i++;
+	}
+	return (1);
+}
+
+long 	ft_atol(char *str)
+{
+	int i;
+	long res;
+	int sign;
+
+	res = 0;
+	i = 0;
+	sign = 1;
+	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
+		i++;
+
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			sign = sign *-1;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		res = res * 10 + (str[i] - '0');
+		i++;
+	}
+	return (sign * res);
+}
+
+int check_int_range(char *str)
+{
+	long num;
+
+	num = ft_atol(str);
+	if (num < INT_MIN || num > INT_MAX)
+	{
+		ft_putendl_fd("Error", 1);
+		return (0);
 	}
 	return (1);
 }
@@ -58,9 +97,7 @@ int	check_duplicate(int *numbers, int len)
 		while (j < len)
 		{
 			if (numbers[i] == numbers[j])
-			{
-				perror("Error\n");
-			}
+				ft_putendl_fd("Error", 1);
 			j++;
 		}
 		i++;
