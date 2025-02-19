@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   swap_operations.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mknoll <mknoll@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 12:28:12 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/02/18 12:37:04 by mknoll           ###   ########.fr       */
+/*   Updated: 2025/02/19 14:43:23 by moritzknoll      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ int	swap(t_list **stack)
 	}
 	head = *stack;
 	next = head->next;
-	if (!head && !next)
-		perror ("Error occured while swapping ");
 	temp_value = head->value;
 	temp_index = head->index;
 	head->value = next->value;

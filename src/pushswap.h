@@ -6,7 +6,7 @@
 /*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 10:35:17 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/02/19 10:34:58 by moritzknoll      ###   ########.fr       */
+/*   Updated: 2025/02/19 15:08:04 by moritzknoll      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,9 @@ int		*parsing_args(int *arr_size, int argc, char *argv[]);
 int		*convert_and_check(char **result, int *numbers, int *j);
 int		check_int_range(char *str);
 long	ft_atol(char *str);
+int		sorted(t_list *stack);
+t_list	*sort_for_three(t_list **stack);
+t_list	*arr_to_list(int *numbers);
+int		get_size(int *numbers);
 
 #endif

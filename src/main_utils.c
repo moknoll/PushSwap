@@ -6,7 +6,7 @@
 /*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 13:02:45 by mknoll            #+#    #+#             */
-/*   Updated: 2025/02/19 10:36:10 by moritzknoll      ###   ########.fr       */
+/*   Updated: 2025/02/19 14:13:16 by moritzknoll      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,18 @@ int	get_arr_size(char *str)
 		return (0);
 	while (result[len])
 		len++;
-
 	free_tab(result);
 	return (len);
+}
+
+int get_size(int *numbers)
+{
+	int len;
+
+	len = 0;
+	while (numbers[len])
+	{
+		len++;
+	}
+	return (len); 
 }

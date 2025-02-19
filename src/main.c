@@ -6,7 +6,7 @@
 /*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 09:34:12 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/02/19 10:34:37 by moritzknoll      ###   ########.fr       */
+/*   Updated: 2025/02/19 15:00:23 by moritzknoll      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,29 +83,43 @@ int	*parsing_args(int *arr_size, int argc, char *argv[])
 	return (numbers);
 }
 
-
-int main(int argc, char *argv[])
+t_list *arr_to_list(int *numbers)
 {
-	int size;
-	int *numbers;
+    int i;
+    t_list *head;
+    t_list *new_node;
+    t_list *temp;
 
-	if (argc < 2)
-	{
-		printf("Error\n");
-		return (1);
-	}
+    head = NULL;
+    i = 0;
 
-	// Prüfen, ob die Eingabe ein einzelner String ist oder mehrere Argumente
-	if (argc == 2)
-		numbers = parsing_str(&size, argv[1]);
-	else
-		numbers = parsing_args(&size, argc, argv);
+    while (numbers[i] != '\0')  // Du solltest hier sicherstellen, dass du das Ende des Arrays richtig behandelst.
+    {
+        new_node = malloc(sizeof(t_list));
+        if (!new_node)
+            return (NULL);  // Falls malloc fehlschlägt, gib NULL zurück
 
-	// Debug-Ausgabe
-	// for (int i = 0; i < size; i++)
-	// 	printf("%d ", numbers[i]);
-	// printf("\n");
+        new_node->value = numbers[i];
+        new_node->index = i;  // Index der Zahl im Array (optional, falls du ihn brauchst)
+        new_node->next = NULL;
 
-	free(numbers);
-	return 0;
+        // Wenn die Liste leer ist, mache das neue Element zum Kopf
+        if (!head)
+            head = new_node;
+        else
+        {
+            // Wenn die Liste nicht leer ist, hänge das neue Element ans Ende
+            temp = head;
+            while (temp->next)  // Finde das letzte Element der Liste
+                temp = temp->next;
+
+            temp->next = new_node;  // Hänge das neue Element ans Ende der Liste
+        }
+
+        i++;
+    }
+
+    return (head);
 }
+
+
