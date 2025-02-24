@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
+/*   By: mknoll <mknoll@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 13:02:45 by mknoll            #+#    #+#             */
-/*   Updated: 2025/02/21 11:46:27 by moritzknoll      ###   ########.fr       */
+/*   Updated: 2025/02/24 09:30:22 by mknoll           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,19 @@ void	free_tab(char **arr)
 	free(arr);
 }
 
+void	free_list(t_list *stack)
+{
+	t_list	*temp;
+
+	while (stack)
+	{
+		temp = stack;
+		stack = stack->next;
+		free(temp);
+	}
+}
+
+
 int	check_number(char *str)
 {
 	int	i;
@@ -46,11 +59,11 @@ int	check_number(char *str)
 	return (1);
 }
 
-long 	ft_atol(char *str)
+long	ft_atol(char *str)
 {
-	int i;
-	long res;
-	int sign;
+	int		i;
+	long	res;
+	int		sign;
 
 	res = 0;
 	i = 0;
@@ -61,7 +74,7 @@ long 	ft_atol(char *str)
 	if (str[i] == '-' || str[i] == '+')
 	{
 		if (str[i] == '-')
-			sign = sign *-1;
+			sign = sign * -1;
 		i++;
 	}
 	while (str[i] >= '0' && str[i] <= '9')
@@ -72,9 +85,9 @@ long 	ft_atol(char *str)
 	return (sign * res);
 }
 
-int check_int_range(char *str)
+int	check_int_range(char *str)
 {
-	long num;
+	long	num;
 
 	num = ft_atol(str);
 	if (num < INT_MIN || num > INT_MAX)
@@ -122,7 +135,7 @@ int	get_arr_size(char *str)
 
 int get_size(int *numbers)
 {
-	int len;
+	int	len;
 
 	len = 0;
 	while (numbers[len])

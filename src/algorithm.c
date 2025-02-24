@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algorithm.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
+/*   By: mknoll <mknoll@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 09:11:08 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/02/24 08:20:36 by moritzknoll      ###   ########.fr       */
+/*   Updated: 2025/02/24 11:45:23 by mknoll           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,28 +123,28 @@ t_list *sort_for_five(t_list **stack_a)
 	return (*stack_a);
 }
 
-t_list	*sort(t_list	**stack_a)
-{
-	t_list *stack_b;
-	int min_pos;
+// t_list	*sort(t_list	**stack_a)
+// {
+// 	t_list *stack_b;
+// 	int min_pos;
 
-	stack_b = NULL;
-	min_pos = find_min_index(*stack_a);
-	move_min_to_top(stack_a, min_pos);
-	pb(&stack_b, stack_a);
-	while (*stack_a)
-	{
-		min_pos = find_min_index(*stack_a);
-		move_min_to_top(stack_a, min_pos);
-		pb(&stack_b, stack_a);
-	}
-	if (!*stack_a)
-	{
-		while(stack_b)
-			pa(stack_a, &stack_b);
-	}
-	return (*stack_a);
-}
+// 	stack_b = NULL;
+// 	min_pos = find_min_index(*stack_a);
+// 	move_min_to_top(stack_a, min_pos);
+// 	pb(&stack_b, stack_a);
+// 	while (*stack_a)
+// 	{
+// 		min_pos = find_min_index(*stack_a);
+// 		move_min_to_top(stack_a, min_pos);
+// 		pb(&stack_b, stack_a);
+// 	}
+// 	if (!*stack_a)
+// 	{
+// 		while(stack_b)
+// 			pa(stack_a, &stack_b);
+// 	}
+// 	return (*stack_a);
+// }
 
 
 void print_list(t_list *list)
@@ -171,28 +171,19 @@ int main(int argc, char *argv[])
         return (1);
     }
 
-    // Parsing
-    numbers = (argc == 2) ? parsing_str(&size, argv[1]) : parsing_args(&size, argc, argv);
-    if (!numbers)
-    {
-        printf("Error: Parsing failed\n");
-        return (1);
-    }
+    // Parsen der Argumente
+    if (argc == 2)
+        numbers = parsing_str(&size, argv[1]);
+    else
+        numbers = parsing_args(&size, argc, argv);
 
     list = arr_to_list(numbers);
-    if (!list)
-    {
-        printf("Error: List creation failed\n");
-        free(numbers);
-        return (1);
-    }
-
     size = ft_lstsize(list);
 
     printf("Before sorting:\n");
-    print_list(list);
+    print_list(list);  // Zeige die Liste vor der Sortierung
 
-    if (!sorted(list))
+    if (sorted(list) != 1)
     {
         if (size == 3)
             sort_for_three(&list);
@@ -200,45 +191,28 @@ int main(int argc, char *argv[])
             sort_for_five(&list);
         else
         {
-            // **Sortierprozess mit Chunks**
-            int *sorted_arr = stack_to_array(list, size);
-            if (!sorted_arr)
-            {
-                printf("Error: Failed to convert stack to array\n");
-                free(numbers);
-                return (1);
-            }
+            // **Neuer Sortierprozess mit Chunks**
+            int *sorted_arr = pre_sort_array(numbers, size);  // 1. Stack als Array speichern
+            quicksort_array(sorted_arr, 0, size - 1);  // 2. Array sortieren
 
-            quicksort_array(sorted_arr, 0, size - 1);
+            int pivots[10];  // 5 Pivot-Werte für die Chunks
+            for (int i = 0; i < 10; i++)
+                pivots[i] = get_pivot(sorted_arr, size, i + 1);
 
-            int chunks = (size < 5) ? size : 5;
-            int pivots[chunks];
+            free(sorted_arr);  // Speicherplatz freigeben
 
-            for (int i = 0; i < chunks; i++)
-                pivots[i] = get_pivot(sorted_arr, size, i);
-
-            free(sorted_arr);
-
-            if (!list)
-            {
-                printf("Error: No elements to push to stack B\n");
-                free(numbers);
-                return (1);
-            }
-
+            // 3. Zahlen von a nach b basierend auf Chunks verschieben
             push_chunks_to_b(&list, &stack_b, pivots);
+
+            // 4. Sortierte Zahlen von b zurück nach a bringen
             push_sorted_back_to_a(&list, &stack_b);
         }
 
         printf("After sorting:\n");
-        print_list(list);
+        print_list(list);  // Zeige die Liste nach der Sortierung
     }
 
-    printf("Operation count: %d\n", operation_count);
-
-    if (numbers)
-        free(numbers);
-
+    free(numbers);
     return 0;
 }
 

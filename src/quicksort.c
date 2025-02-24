@@ -3,22 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   quicksort.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
+/*   By: mknoll <mknoll@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 11:25:25 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/02/24 08:18:43 by moritzknoll      ###   ########.fr       */
+/*   Updated: 2025/02/24 11:45:45 by mknoll           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pushswap.h"
 
-void swap_test(int *a, int *b) {
+void swap_test(int *a, int *b) 
+{
     int temp = *a;
     *a = *b;
     *b = temp;
 }
 
-int partition_test(int *arr, int low, int high) {
+int partition_test(int *arr, int low, int high) 
+{
     int pivot = arr[high];  // Wähle das letzte Element als Pivot
     int i = low - 1;  // Index des kleineren Elements
 
@@ -32,8 +34,10 @@ int partition_test(int *arr, int low, int high) {
     return (i + 1);  // Gib den neuen Pivot-Index zurück
 }
 
-void quicksort_array(int *arr, int low, int high) {
-    if (low < high) {
+void quicksort_array(int *arr, int low, int high)
+{
+    if (low < high)
+    {
         int pivot_index = partition_test(arr, low, high);  // Finde den Pivot
 
         quicksort_array(arr, low, pivot_index - 1);  // Sortiere linke Hälfte
@@ -41,31 +45,25 @@ void quicksort_array(int *arr, int low, int high) {
     }
 }
 
-int *stack_to_array(t_list *stack, int size) {
-    int *arr = malloc(sizeof(int) * size);
-    if (!arr) {
-    perror("Memory allocation failed");
-    return NULL;
-}
-
-
-    t_list *temp = stack;
-    for (int i = 0; i < size; i++) {
-        arr[i] = temp->value;
-        temp = temp->next;
-    }
-
-    quicksort_array(arr, 0, size - 1);  // Sortiere das Array
-    return arr;
+int *pre_sort_array(int *numbers, int size)
+{
+    
+    quicksort_array(numbers, 0, size - 1);  // Sortiere das Array
+    return numbers;
 }
 
 int get_pivot(int *arr, int size, int chunk) {
-    return arr[(size / 5) * chunk];  // Nimmt den Wert, der 1/5, 2/5, 3/5 usw. des Arrays entspricht
+    int index = (size / 10) * chunk;  // Berechnet den Index des Pivots basierend auf Chunk
+    if (chunk == 9) {
+        return arr[size - 1];  // Das letzte Element ist der Pivot für den letzten Chunk
+    }
+    return arr[index];
 }
+
 
 void push_chunks_to_b(t_list **a, t_list **b, int *pivots) {
     int chunk = 0;
-    int total_chunks = 5;
+    int total_chunks = 10;
 
     while (chunk < total_chunks) {
         int pivot = pivots[chunk];  // Aktueller Pivot-Wert
@@ -77,8 +75,10 @@ void push_chunks_to_b(t_list **a, t_list **b, int *pivots) {
 			if ((*a)->value <= pivot)
 			{
 				pb(b, a);
-				if (chunk > 0 && *b && (*b)->value < pivots[chunk - 1])
-					rb(b);  // Kleinere Werte nach unten
+				if ((*b)->value < pivots[chunk - 1])
+				{
+					rb(b); // Kleinere Werte nach unten
+				}
 			}
 			else
 				ra(a);
@@ -104,7 +104,8 @@ int find_max_index(t_list *stack) {
     return max_index;
 }
 
-void move_max_to_top(t_list **stack, int max_pos) {
+void move_max_to_top(t_list **stack, int max_pos)
+{
     int size = ft_lstsize(*stack);
 
     if (max_pos < size / 2)
