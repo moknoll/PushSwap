@@ -6,7 +6,7 @@
 /*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 13:02:45 by mknoll            #+#    #+#             */
-/*   Updated: 2025/02/19 14:13:16 by moritzknoll      ###   ########.fr       */
+/*   Updated: 2025/02/21 11:46:27 by moritzknoll      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int check_int_range(char *str)
 	num = ft_atol(str);
 	if (num < INT_MIN || num > INT_MAX)
 	{
-		ft_putendl_fd("Error", 1);
+		ft_putendl_fd("Error range", 1);
 		return (0);
 	}
 	return (1);
@@ -97,7 +97,7 @@ int	check_duplicate(int *numbers, int len)
 		while (j < len)
 		{
 			if (numbers[i] == numbers[j])
-				ft_putendl_fd("Error", 1);
+				ft_putendl_fd("Error duplicate", 1);
 			j++;
 		}
 		i++;
@@ -129,5 +129,5 @@ int get_size(int *numbers)
 	{
 		len++;
 	}
-	return (len); 
+	return (len);
 }

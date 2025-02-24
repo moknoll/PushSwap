@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rotate_operations.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mknoll <mknoll@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 09:31:56 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/02/18 12:39:56 by mknoll           ###   ########.fr       */
+/*   Updated: 2025/02/21 11:29:01 by moritzknoll      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	reverse_rotate(t_list **stack)
 	last = last->next;
 	prev->next = NULL;
 	ft_lstadd_front(stack, last);
+	increment_operation_count();
 	return (0);
 }
 
@@ -48,6 +49,7 @@ int	ra(t_list **stack)
 	if (rotate(stack) == -1)
 		return (-1);
 	ft_putendl_fd("ra", 1);
+	increment_operation_count();
 	return (0);
 }
 
@@ -56,6 +58,7 @@ int	rb(t_list **stack)
 	if (rotate(stack) == -1)
 		return (-1);
 	ft_putendl_fd("rb", 1);
+	increment_operation_count();
 	return (0);
 }
 

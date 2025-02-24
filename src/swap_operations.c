@@ -6,7 +6,7 @@
 /*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 12:28:12 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/02/19 14:43:23 by moritzknoll      ###   ########.fr       */
+/*   Updated: 2025/02/21 11:31:41 by moritzknoll      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	sa(t_list **stack_a)
 	if (swap(stack_a) == -1)
 		return (-1);
 	ft_putendl_fd("sa", 1);
+	increment_operation_count();
 	return (0);
 }
 
@@ -48,6 +49,7 @@ int	sb(t_list **stack_b)
 	if (swap(stack_b) == -1)
 		return (-1);
 	ft_putendl_fd("sb", 1);
+	increment_operation_count();
 	return (0);
 }
 
@@ -58,6 +60,7 @@ int	ss(t_list **stack_a, t_list	**stack_b)
 	swap(stack_a);
 	swap(stack_b);
 	ft_putendl_fd("ss", 1);
+	increment_operation_count();
 	return (1);
 }
 

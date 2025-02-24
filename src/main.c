@@ -6,7 +6,7 @@
 /*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 09:34:12 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/02/19 15:00:23 by moritzknoll      ###   ########.fr       */
+/*   Updated: 2025/02/19 20:29:15 by moritzknoll      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ t_list *arr_to_list(int *numbers)
         new_node->value = numbers[i];
         new_node->index = i;  // Index der Zahl im Array (optional, falls du ihn brauchst)
         new_node->next = NULL;
-
         // Wenn die Liste leer ist, mache das neue Element zum Kopf
         if (!head)
             head = new_node;

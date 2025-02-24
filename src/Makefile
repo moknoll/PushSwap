@@ -1,9 +1,11 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -I../libft
 LDFLAGS = -L../libft -lft
-SRC = swap_operations.c push_operations.c rotate_operations.c main.c rrotate_operations.c main_utils.c algorithm.c
+SRC = swap_operations.c push_operations.c rotate_operations.c main.c rrotate_operations.c main_utils.c algorithm.c quicksort.c
 OBJ = $(SRC:.c=.o)
 NAME = push_swap
+
+
 
 all: $(NAME)
 
