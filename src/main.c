@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mknoll <mknoll@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 09:11:08 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/02/25 10:33:16 by mknoll           ###   ########.fr       */
+/*   Updated: 2025/02/25 11:06:42 by moritzknoll      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,9 @@ void print_list(t_list *list)
 }
 
 
+#include "pushswap.h"
+#include <math.h>  // Für sqrt()
+
 int main(int argc, char *argv[])
 {
     int size;
@@ -192,17 +195,17 @@ int main(int argc, char *argv[])
         else
         {
             // **Neuer Sortierprozess mit Chunks**
+            int chunk_count = get_chunk_count(size);  // Bestimme die Chunk-Anzahl dynamisch
             int *sorted_arr = pre_sort_array(numbers, size);  // 1. Stack als Array speichern
             quicksort_array(sorted_arr, 0, size - 1);  // 2. Array sortieren
 
-            int pivots[5];  // 5 Pivot-Werte für die Chunks
-            for (int i = 0; i < 5; i++)
-                pivots[i] = get_pivot(sorted_arr, size, i + 1);
+            int pivots[chunk_count];  // Dynamische Anzahl von Pivot-Werten
+            calculate_pivots(sorted_arr, size, pivots, chunk_count);  // Bestimme die Pivot-Werte
 
             free(sorted_arr);  // Speicherplatz freigeben
 
             // 3. Zahlen von a nach b basierend auf Chunks verschieben
-            push_chunks_to_b(&list, &stack_b, pivots);
+            push_chunks_to_b(&list, &stack_b, pivots, chunk_count);
 
             // 4. Sortierte Zahlen von b zurück nach a bringen
             push_sorted_back_to_a(&list, &stack_b);
@@ -215,6 +218,7 @@ int main(int argc, char *argv[])
     free(numbers);
     return 0;
 }
+
 
 
 

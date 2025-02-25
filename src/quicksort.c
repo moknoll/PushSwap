@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quicksort.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mknoll <mknoll@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 11:25:25 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/02/25 10:33:00 by mknoll           ###   ########.fr       */
+/*   Updated: 2025/02/25 11:07:29 by moritzknoll      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,49 +60,47 @@ int	*pre_sort_array(int *numbers, int size)
 	return (numbers);
 }
 
-int get_pivot(int *arr, int size, int chunk)
+int get_chunk_count(int size)
 {
-	int	index;
+    if (size <= 100)
+        return 5;
+    else if (size <= 500)
+        return 11;
+    return sqrt(size) * 2.2;  // Dynamisch skalieren
+}
 
-	index = (size / 5) * chunk;
-	if (chunk == 4)
-	{
-		return (arr[size - 1]);
-	}
-	return (arr[index]);
+void calculate_pivots(int *arr, int size, int *pivots, int chunk_count)
+{
+    for (int i = 0; i < chunk_count; i++)
+    {
+        pivots[i] = arr[(size / chunk_count) * (i + 1)];
+    }
 }
 
 
-void push_chunks_to_b(t_list **a, t_list **b, int *pivots)
-{
-    int chunk;
-    int total_chunks;
-	
-	chunk = 0;
-	total_chunks = 5;
-    while (chunk < total_chunks) 
-	{
-        int pivot = pivots[chunk];  // Aktueller Pivot-Wert
 
-        int i = 0;
-        int len = ft_lstsize(*a);
-        while (i < len)
-		{
-			if ((*a)->value <= pivot)
-			{
-				pb(b, a);
-				if ((*b)->value < pivots[chunk - 1])
-				{
-					rb(b); // Kleinere Werte nach unten
-				}
-			}
-			else
-				ra(a);
-			i++;
-		}
-		chunk++;
-	}
+void push_chunks_to_b(t_list **a, t_list **b, int *pivots, int chunk_count)
+{
+    int i = 0, len = ft_lstsize(*a);
+    int chunk = 0;
+
+    while (i < len)
+    {
+        if ((*a)->value <= pivots[chunk])
+        {
+            pb(b, a);
+            if (*b && (*b)->value < pivots[chunk - 1])
+                rb(b);  // Nur rotieren, wenn Wert kleiner als vorheriges Pivot
+        }
+        else
+            ra(a);  // Nur wenn nicht in den aktuellen Chunk passt
+
+        if (i % (len / chunk_count) == 0 && chunk < chunk_count - 1)
+            chunk++;  // Nächstes Chunk nutzen
+        i++;
+    }
 }
+
 
 int find_max_index(t_list *stack)
 {
@@ -124,23 +122,16 @@ int find_max_index(t_list *stack)
 
 void	move_max_to_top(t_list **stack, int max_pos)
 {
-	int	size;
+	int	size = ft_lstsize(*stack);
 
-	size = ft_lstsize(*stack);
 	if (max_pos < size / 2)
-	{
 		while (max_pos--)
 			rb(stack);
-	}
 	else
-	{
-		while (max_pos < size)
-		{
+		while (max_pos++ < size)
 			rrb(stack);
-			max_pos++;
-		}
-	}
 }
+
 
 void	push_sorted_back_to_a(t_list **a, t_list **b)
 {
