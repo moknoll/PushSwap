@@ -3,122 +3,218 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
+/*   By: mknoll <mknoll@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/18 09:34:12 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/02/19 20:29:15 by moritzknoll      ###   ########.fr       */
+/*   Created: 2025/02/19 09:11:08 by moritzknoll       #+#    #+#             */
+/*   Updated: 2025/02/25 10:33:16 by mknoll           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pushswap.h"
 
-int	*parsing_str(int *arr_size, char *str)
+int sorted(t_list *stack)
 {
-	char	**result;
-	int		*numbers;
-	int		i;
+	if (!stack || !stack->next)
+		return (1);
+	while (stack->next)
+	{
+		if (stack->value > stack->next->value)
+			return (0);
+		stack = stack -> next;
+	}
+	return (1);
+}
 
-	*arr_size = get_arr_size(str);
+t_list	*sort_for_three(t_list **stack)
+{
+	int	a;
+	int	b;
+	int	c;
+
+	a = (*stack)->value;
+	b = (*stack)->next->value;
+	c = (*stack)->next->next->value;
+	if (a > b && b < c && c > a)
+		sa(stack);
+	else if (a > b && b > c && c < a)
+	{
+		sa(stack);
+		rra(stack);
+	}
+    else if (a > b && a > c && c > b)
+		ra(stack);
+	else if (a < b && b > c && c > a)
+	{
+		sa(stack);
+		ra(stack);
+	}
+	else if (a < b && b > c && c < b)
+		rra(stack);
+	return (*stack);
+}
+
+int find_min_index(t_list *stack)
+{
+	int min_value;
+	int min_index;
+	int i;
+
+	if (!stack)
+		return (-1);
+	min_value = stack->value;
+	min_index = 0; // stack->index
 	i = 0;
-	result = ft_split(str, ' ');
-	if (!result)
-		return (NULL);
-	numbers = malloc(sizeof(int) * (*arr_size));
-	if (! numbers)
-		return (free_tab(result), NULL);
-	while (i < *arr_size)
+	while (stack)
 	{
-		if (!check_number(result[i]))
-			return (free_tab(result), free(numbers), NULL);
-		numbers[i] = ft_atoi(result[i]);
-		free (result[i]);
+		if (stack->value < min_value)
+		{
+			min_value = stack->value;
+			min_index = i;
+		}
+		stack = stack->next;
 		i++;
 	}
-	free(result);
-	check_duplicate(numbers, *arr_size);
-	return (numbers);
+	return (min_index);
 }
 
-int *convert_and_check(char **result, int *numbers, int *j)
+void	move_min_to_top(t_list **stack, int min_pos)
 {
-	int k;
+	int size;
 
-	k = 0;
-	while (result[k])
+	size = ft_lstsize(*stack);
+	if (min_pos <= size/2)	// If min_index in der oberen hälfte -> rotate a
 	{
-		if (!check_number(result[k])
-				|| !check_int_range(result[k]))
-			return (free_tab(result), free(numbers), NULL);
-		numbers[*j] = ft_atoi(result[k]);
-		free(result[k]);
-		(*j)++;
-		k++;
+		while (min_pos > 0)
+		{
+			ra(stack);
+			min_pos--;
+		}
 	}
-	free(result);
-	return (numbers);
-}
-
-int	*parsing_args(int *arr_size, int argc, char *argv[])
-{
-	char	**result;
-	int		*numbers;
-	int		i;
-	int		j;
-
-	i = 1;
-	j = 0;
-	numbers = malloc(sizeof(int) * (argc - 1));
-	if (!numbers)
-		return (NULL);
-	while (i < argc)
+	else
 	{
-		result = ft_split(argv[i], ' ');
-		numbers = convert_and_check(result, numbers, &j);
-		if (!result || !(numbers))
-			return (NULL);
-		i++;
+		while(min_pos < size)
+		{
+			rra(stack);
+			min_pos++;
+		}
 	}
-	*arr_size = j;
-	check_duplicate(numbers, *arr_size);
-	return (numbers);
 }
 
-t_list *arr_to_list(int *numbers)
+t_list *sort_for_five(t_list **stack_a)
 {
-    int i;
-    t_list *head;
-    t_list *new_node;
-    t_list *temp;
+	t_list *stack_b;
+	int size;
+	int min_pos;
 
-    head = NULL;
-    i = 0;
+	stack_b = NULL;
+	size = ft_lstsize(*stack_a);
+	min_pos = find_min_index(*stack_a);
+	move_min_to_top(stack_a, min_pos);
+	pb(&stack_b, stack_a);
+	if (size == 5)
+	{
+		min_pos = find_min_index(*stack_a);
+		move_min_to_top(stack_a, min_pos);
+		pb(&stack_b, stack_a);
+	}
+	sort_for_three(stack_a);
+	pa(stack_a, &stack_b);
+	pa(stack_a, &stack_b);
+	return (*stack_a);
+}
 
-    while (numbers[i] != '\0')  // Du solltest hier sicherstellen, dass du das Ende des Arrays richtig behandelst.
+// t_list	*sort(t_list	**stack_a)
+// {
+// 	t_list *stack_b;
+// 	int min_pos;
+
+// 	stack_b = NULL;
+// 	min_pos = find_min_index(*stack_a);
+// 	move_min_to_top(stack_a, min_pos);
+// 	pb(&stack_b, stack_a);
+// 	while (*stack_a)
+// 	{
+// 		min_pos = find_min_index(*stack_a);
+// 		move_min_to_top(stack_a, min_pos);
+// 		pb(&stack_b, stack_a);
+// 	}
+// 	if (!*stack_a)
+// 	{
+// 		while(stack_b)
+// 			pa(stack_a, &stack_b);
+// 	}
+// 	return (*stack_a);
+// }
+
+
+void print_list(t_list *list)
+{
+    while (list)
     {
-        new_node = malloc(sizeof(t_list));
-        if (!new_node)
-            return (NULL);  // Falls malloc fehlschlägt, gib NULL zurück
+        printf("%d ", list->value);
+        list = list->next;
+    }
+    printf("\n");
+}
 
-        new_node->value = numbers[i];
-        new_node->index = i;  // Index der Zahl im Array (optional, falls du ihn brauchst)
-        new_node->next = NULL;
-        // Wenn die Liste leer ist, mache das neue Element zum Kopf
-        if (!head)
-            head = new_node;
-        else
-        {
-            // Wenn die Liste nicht leer ist, hänge das neue Element ans Ende
-            temp = head;
-            while (temp->next)  // Finde das letzte Element der Liste
-                temp = temp->next;
 
-            temp->next = new_node;  // Hänge das neue Element ans Ende der Liste
-        }
+int main(int argc, char *argv[])
+{
+    int size;
+    int *numbers;
+    t_list *list;
+    t_list *stack_b = NULL;
 
-        i++;
+    if (argc < 2)
+    {
+        printf("Error\n");
+        return (1);
     }
 
-    return (head);
+    // Parsen der Argumente
+    if (argc == 2)
+        numbers = parsing_str(&size, argv[1]);
+    else
+        numbers = parsing_args(&size, argc, argv);
+
+    list = arr_to_list(numbers);
+    size = ft_lstsize(list);
+
+    printf("Before sorting:\n");
+    print_list(list);  // Zeige die Liste vor der Sortierung
+
+    if (sorted(list) != 1)
+    {
+        if (size == 3)
+            sort_for_three(&list);
+        else if (size <= 5)
+            sort_for_five(&list);
+        else
+        {
+            // **Neuer Sortierprozess mit Chunks**
+            int *sorted_arr = pre_sort_array(numbers, size);  // 1. Stack als Array speichern
+            quicksort_array(sorted_arr, 0, size - 1);  // 2. Array sortieren
+
+            int pivots[5];  // 5 Pivot-Werte für die Chunks
+            for (int i = 0; i < 5; i++)
+                pivots[i] = get_pivot(sorted_arr, size, i + 1);
+
+            free(sorted_arr);  // Speicherplatz freigeben
+
+            // 3. Zahlen von a nach b basierend auf Chunks verschieben
+            push_chunks_to_b(&list, &stack_b, pivots);
+
+            // 4. Sortierte Zahlen von b zurück nach a bringen
+            push_sorted_back_to_a(&list, &stack_b);
+        }
+
+        printf("After sorting:\n");
+        print_list(list);  // Zeige die Liste nach der Sortierung
+    }
+
+    free(numbers);
+    return 0;
 }
+
 
 
