@@ -6,7 +6,7 @@
 /*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 09:11:08 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/02/26 11:18:42 by moritzknoll      ###   ########.fr       */
+/*   Updated: 2025/02/26 13:22:51 by moritzknoll      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ int main(int argc, char *argv[])
 {
 	int		size;
 	int		*numbers;
-	t_list	*list;
+	t_list	*stack_a;
 
 	if (argc < 2)
 		printf("Error\n");
@@ -145,20 +145,19 @@ int main(int argc, char *argv[])
 		numbers = parsing_str(&size, argv[1]);
 	else
 		numbers = parsing_args(&size, argc, argv);
-	list = arr_to_list(numbers);
-	size = ft_lstsize(list);
-	find_pos_in_stack(&list, 2);
-	if (sorted(list) != 1)
+	stack_a = arr_to_list(numbers);
+	size = ft_lstsize(stack_a);
+	if (sorted(stack_a) != 1)
 	{
+		printf("List is not sorted, starting sort...\n");
 		if (size == 3)
-			sort_for_three(&list);
+			sort_for_three(&stack_a);
 		else if (size <= 5)
-			sort_for_five(&list);
-		else
-			sort_large(&list);
+			sort_for_five(&stack_a);
+		sort_large(&stack_a);
 	}
 	printf("Operations used: %d\n", operation_count);
-	print_list(list);
+	print_list(stack_a);
 	free(numbers);
 	return (0);
 }
