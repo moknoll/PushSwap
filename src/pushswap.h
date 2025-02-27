@@ -6,7 +6,7 @@
 /*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 10:35:17 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/02/26 14:06:16 by moritzknoll      ###   ########.fr       */
+/*   Updated: 2025/02/27 11:04:30 by moritzknoll      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,17 @@ t_list	*sort_for_five(t_list **stack_a);
 void	move_min_to_top(t_list **stack, int min_pos);
 int		find_min_index(t_list *stack);
 
-
-t_list	*sort_large(t_list **stack_a);
-void push_cheapest_cost(t_list **stack_a, t_list **stack_b);
-void	move_element_to_top(t_list **stack, t_list *cheapest);
-int		find_pos_in_stack(t_list *stack_a, int value);
-t_list	*find_cheapest_cost(t_list **stack_a, t_list *stack_b);
-int		calculate_cost_b(t_list *element_a, t_list **stack_b);
-int		calculate_cost_a(t_list *element_a, t_list **stack_a);
-t_list	*find_correct_position(t_list *stack_b, int value);
-void move_smallest_to_top(t_list **stack_a);
-void correct_stack_b(t_list **stack_b);
-t_list *find_max_element(t_list *stack);
-void correct_stack_a(t_list **stack_a);
-t_list *find_max_element(t_list *stack);
+void	quicksort_array(int *arr, int low, int high);
+void	print_arr(int *arr);
+int		partion(int *arr, int low, int high);
+void	arr_swap(int *a, int *b);
+int		get_pivot(int *numbers, int highest);
+int		arr_len(int *arr);
+int		quick_sort_b(t_list **stack_a, t_list **stack_b, int len);
+int		quick_sort_a(t_list **stack_a, t_list **stack_b, int len);
+int		get_median(t_list *stack, int len);
+void free_list(t_list *list);
+void print_list(t_list *stack);
+int sorted_descending(t_list *stack);
 
 #endif
