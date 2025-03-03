@@ -6,7 +6,7 @@
 /*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 09:31:56 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/02/25 12:48:53 by moritzknoll      ###   ########.fr       */
+/*   Updated: 2025/02/28 13:49:56 by moritzknoll      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int	reverse_rotate(t_list **stack)
 }
 
 
-
 int	ra(t_list **stack)
 {
 	if (rotate(stack) == -1)
@@ -65,4 +64,14 @@ int	rb(t_list **stack)
 	return (0);
 }
 
+int rr(t_list **stack_a, t_list **stack_b)
+{
+	if (ft_lstsize(*stack_a) < 2 || (ft_lstsize(*stack_b) < 2))
+		return (-1);
+	rotate(stack_a);
+	rotate(stack_b);
+	ft_putendl_fd("rr", 1);
+	increment_operation_count();
+	return (0);
+}
 

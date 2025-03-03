@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mknoll <mknoll@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 13:02:45 by mknoll            #+#    #+#             */
-/*   Updated: 2025/02/24 09:30:22 by mknoll           ###   ########.fr       */
+/*   Updated: 2025/02/28 13:50:22 by moritzknoll      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,6 @@ void	free_tab(char **arr)
 	free(arr);
 }
 
-void	free_list(t_list *stack)
-{
-	t_list	*temp;
-
-	while (stack)
-	{
-		temp = stack;
-		stack = stack->next;
-		free(temp);
-	}
-}
 
 
 int	check_number(char *str)

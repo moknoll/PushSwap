@@ -6,7 +6,7 @@
 /*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 10:35:17 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/02/27 11:04:30 by moritzknoll      ###   ########.fr       */
+/*   Updated: 2025/02/28 13:46:33 by moritzknoll      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_list	*ft_lstnew(int value);
 t_list	*ft_lstlast(t_list *head);
 void	ft_lstadd_front(t_list **stack, t_list *new);
 void	ft_lstadd_back(t_list **stack, t_list *new);
-void print_list(t_list *list);
+void	print_list(t_list *list);
 int		ft_lstsize(t_list *head);
 
 //instruction functions
@@ -61,18 +61,26 @@ int		get_size(int *numbers);
 t_list	*sort_for_five(t_list **stack_a);
 void	move_min_to_top(t_list **stack, int min_pos);
 int		find_min_index(t_list *stack);
+void	free_stack(t_list *stack);
 
-void	quicksort_array(int *arr, int low, int high);
-void	print_arr(int *arr);
-int		partion(int *arr, int low, int high);
-void	arr_swap(int *a, int *b);
-int		get_pivot(int *numbers, int highest);
-int		arr_len(int *arr);
-int		quick_sort_b(t_list **stack_a, t_list **stack_b, int len);
-int		quick_sort_a(t_list **stack_a, t_list **stack_b, int len);
-int		get_median(t_list *stack, int len);
-void free_list(t_list *list);
-void print_list(t_list *stack);
-int sorted_descending(t_list *stack);
+//algorithm
+int		stack_len(t_list *stack);
+void	set_nodes(t_list *stack_a, t_list *stack_b);
+void	push_swap(t_list **stack_a, t_list **stack_b, int len_a );
+t_list	*find_smallest_value(t_list **stack);
+
+//set_nodes
+void	set_target_node(t_list *stack_a, t_list *stack_b);
+void	set_current_position(t_list *stack);
+void	set_price(t_list *stack_a, t_list *stack_b);
+void	set_cheapest(t_list	*stack_b);
+
+
+//sort_nodes
+t_list	*get_cheapest(t_list *stack);
+void 	reverse_rotate_both(t_list **stack_a, t_list **stack_b, t_list *cheapest);
+void	rotate_both(t_list **stack_a, t_list **stack_b, t_list *cheapest);
+void	finish_sorting(t_list **stack, t_list *top, char stack_name);
+void	sort_nodes(t_list **stack_a, t_list **stack_b);
 
 #endif
