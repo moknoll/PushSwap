@@ -6,7 +6,7 @@
 /*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:47:53 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/02/28 13:42:41 by moritzknoll      ###   ########.fr       */
+/*   Updated: 2025/03/04 12:09:51 by moritzknoll      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	stack_len(t_list *stack)
 	while (stack)
 	{
 		len++;
-		stack = stack ->next;
+		stack = stack -> next;
 	}
 	return (len);
 }
@@ -37,34 +37,60 @@ void	set_nodes(t_list *stack_a, t_list *stack_b)
 t_list	*find_smallest_value(t_list **stack)
 {
 	t_list *smallest;
+	t_list *current;
 
-	smallest = NULL;
-	smallest->value = INT_MAX;
-	while (*stack)
+	if (!stack || !*stack)
+		return (NULL);
+	smallest = *stack;
+	current = *stack;
+	while (current)
 	{
-		if ((*stack)->value < smallest->value)
-			smallest = *stack;
-		stack = &(*stack)->next;
+		if (current->value < smallest->value)
+			smallest = current;
+		current = current->next;
 	}
 	return (smallest);
 }
 
-void	push_swap(t_list **stack_a, t_list **stack_b, int len_a)
+t_list	*find_biggest(t_list **stack)
+{
+	t_list *current;
+	t_list *biggest;
+
+	if (!stack || !*stack)
+		return (NULL);
+		biggest = *stack;
+		current = *stack;
+		while (current)
+		{
+			if (current -> value > biggest ->value)
+				biggest = current;
+			current = current ->next;
+		}
+	return (biggest);
+
+}
+
+void push_swap(t_list **stack_a, t_list **stack_b, int len_a)
 {
 	t_list	*smallest;
 
-	if (len_a == 3)
-		sort_for_three(stack_a);
-	else if (len_a <= 5)
+	if (len_a == 5)
 		sort_for_five(stack_a);
-	while (*stack_b)
+	else
+	{
+		while(len_a-- > 3)
+			pb(stack_b, stack_a);
+	}
+	mini_sort(stack_a);
+	while(*stack_b)
 	{
 		set_nodes(*stack_a, *stack_b);
 		sort_nodes(stack_a, stack_b);
 	}
 	set_current_position(*stack_a);
 	smallest = find_smallest_value(stack_a);
-	if (smallest-> above_median)
+	if (smallest -> above_median)
 		while (*stack_a != smallest)
 			ra(stack_a);
 	else

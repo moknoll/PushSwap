@@ -6,7 +6,7 @@
 /*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 09:56:36 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/02/28 09:57:15 by moritzknoll      ###   ########.fr       */
+/*   Updated: 2025/03/04 12:12:51 by moritzknoll      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,32 +25,17 @@ int sorted(t_list *stack)
 	return (1);
 }
 
-t_list	*sort_for_three(t_list **stack)
+void	mini_sort(t_list **stack_a)
 {
-	int	a;
-	int	b;
-	int	c;
+	t_list	*biggest;
 
-	a = (*stack)->value;
-	b = (*stack)->next->value;
-	c = (*stack)->next->next->value;
-	if (a > b && b < c && c > a)
-		sa(stack);
-	else if (a > b && b > c && c < a)
-	{
-		sa(stack);
-		rra(stack);
-	}
-    else if (a > b && a > c && c > b)
-		ra(stack);
-	else if (a < b && b > c && c > a)
-	{
-		sa(stack);
-		ra(stack);
-	}
-	else if (a < b && b > c && c < b)
-		rra(stack);
-	return (*stack);
+	biggest = find_biggest(stack_a);
+	if (*stack_a == biggest)
+		ra(stack_a);
+	else if ((*stack_a) -> next == biggest)
+		rra(stack_a);
+	if ((*stack_a) -> value > (*stack_a)->next->value)
+		sa(stack_a);
 }
 
 int find_min_index(t_list *stack)
@@ -100,7 +85,7 @@ void	move_min_to_top(t_list **stack, int min_pos)
 	}
 }
 
-t_list *sort_for_five(t_list **stack_a)
+void sort_for_five(t_list **stack_a)
 {
 	t_list *stack_b;
 	int size;
@@ -117,9 +102,8 @@ t_list *sort_for_five(t_list **stack_a)
 		move_min_to_top(stack_a, min_pos);
 		pb(&stack_b, stack_a);
 	}
-	sort_for_three(stack_a);
+	mini_sort(stack_a);
 	pa(stack_a, &stack_b);
 	pa(stack_a, &stack_b);
-	return (*stack_a);
 }
 

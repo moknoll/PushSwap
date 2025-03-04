@@ -6,7 +6,7 @@
 /*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 09:11:08 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/03/03 19:36:01 by moritzknoll      ###   ########.fr       */
+/*   Updated: 2025/03/04 12:06:30 by moritzknoll      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
 	if (!sorted(stack_a))
 	{
 		if (size == 3)
-			sort_for_three(&stack_a);
+			mini_sort(&stack_a);
 		else if (size <= 5)
 			sort_for_five(&stack_a);
 		else

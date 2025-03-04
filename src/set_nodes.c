@@ -6,7 +6,7 @@
 /*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:58:08 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/02/28 13:45:48 by moritzknoll      ###   ########.fr       */
+/*   Updated: 2025/03/04 10:52:05 by moritzknoll      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,10 @@ void	set_target_node(t_list *stack_a, t_list *stack_b)
 		if (LONG_MAX == best_match_index)
 			stack_b ->target = find_smallest_value(&stack_a);
 		else
-			stack_a -> target = target_node;
+			stack_b -> target = target_node;
 		stack_b = stack_b ->next;
 	}
+	printf("For Node %d in Stack_B, Target in Stack_A: %d\n", stack_b->value, stack_b->target->value);
 }
 
 void	set_current_position(t_list *stack)
@@ -67,11 +68,11 @@ void	set_price(t_list *stack_a, t_list *stack_b)
 	int len_b;
 
 	len_a = stack_len(stack_a);
-	len_b = stack_len(stack_a);
+	len_b = stack_len(stack_b);
 	while (stack_b)
 	{
-		stack_b->price = stack_a->current_pos;
-		if (!(stack_b ->above_median))
+		stack_b->price = stack_b->current_pos;;
+		if (!(stack_b -> above_median))
 			stack_b->price = len_b - (stack_b->current_pos);
 		if (stack_b->target -> above_median)
 			stack_a->price += stack_b->target->current_pos;
@@ -79,6 +80,7 @@ void	set_price(t_list *stack_a, t_list *stack_b)
 			stack_b->price += len_a - (stack_b->target->current_pos);
 		stack_b = stack_b -> next;
 	}
+	printf("Node %d in Stack_B, Price: %d\n", stack_b->value, stack_b->price);
 }
 
 void	set_cheapest(t_list	*stack_b)
@@ -97,5 +99,6 @@ void	set_cheapest(t_list	*stack_b)
 		}
 		stack_b = stack_b -> next;
 	}
+	printf("Cheapest Node in Stack_B: %d\n", best_fit_node->value);
 	best_fit_node->cheapest = true;
 }

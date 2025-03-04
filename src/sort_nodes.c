@@ -6,7 +6,7 @@
 /*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 14:48:53 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/02/28 13:46:08 by moritzknoll      ###   ########.fr       */
+/*   Updated: 2025/03/04 11:46:30 by moritzknoll      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_list *get_cheapest(t_list *stack)
 {
-	while (stack->cheapest != true)
+	while (stack)
 	{
 		if (stack->cheapest)
 			return (stack);
@@ -22,6 +22,7 @@ t_list *get_cheapest(t_list *stack)
 	}
 	return (NULL);
 }
+
 void	rotate_both(t_list **stack_a, t_list **stack_b, t_list *cheapest)
 {
 	while (*stack_a != cheapest->target && *stack_b != cheapest)
@@ -33,7 +34,7 @@ void	rotate_both(t_list **stack_a, t_list **stack_b, t_list *cheapest)
 void reverse_rotate_both(t_list **stack_a, t_list **stack_b, t_list *cheapest)
 {
 	while (*stack_a != cheapest->target && *stack_b != cheapest)
-		rrr(stack_a, stack_a);
+		rrr(stack_a, stack_b);
 	set_current_position(*stack_a);
 	set_current_position(*stack_b);
 }
@@ -73,4 +74,5 @@ void	sort_nodes(t_list **stack_a, t_list **stack_b)
 	finish_sorting(stack_b, cheapest_node, 'b');
 	finish_sorting(stack_a, cheapest_node->target, 'a');
 	pa(stack_a, stack_b);
+	print_list(*stack_a);
 }

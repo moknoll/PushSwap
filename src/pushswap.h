@@ -6,7 +6,7 @@
 /*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 10:35:17 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/02/28 13:46:33 by moritzknoll      ###   ########.fr       */
+/*   Updated: 2025/03/04 12:09:33 by moritzknoll      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,14 @@ int		*convert_and_check(char **result, int *numbers, int *j);
 int		check_int_range(char *str);
 long	ft_atol(char *str);
 int		sorted(t_list *stack);
-t_list	*sort_for_three(t_list **stack);
+void	mini_sort(t_list **stack_a);
 t_list	*arr_to_list(int *numbers);
 int		get_size(int *numbers);
-t_list	*sort_for_five(t_list **stack_a);
+void	sort_for_five(t_list **stack_a);
 void	move_min_to_top(t_list **stack, int min_pos);
 int		find_min_index(t_list *stack);
 void	free_stack(t_list *stack);
+t_list	*find_biggest(t_list **stack);
 
 //algorithm
 int		stack_len(t_list *stack);
