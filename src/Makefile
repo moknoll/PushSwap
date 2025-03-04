@@ -16,7 +16,6 @@ RESET = \033[0m
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@figlet "Push Swap | 42 "
 	@echo "$(YELLOW)Building: [#.........]$(RESET)\r"
 	@sleep 0.2
 	@echo "$(YELLOW)Building: [##........]$(RESET)\r"

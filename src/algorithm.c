@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algorithm.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
+/*   By: mknoll <mknoll@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:47:53 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/03/04 12:09:51 by moritzknoll      ###   ########.fr       */
+/*   Updated: 2025/03/04 12:26:11 by mknoll           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	set_nodes(t_list *stack_a, t_list *stack_b)
 
 t_list	*find_smallest_value(t_list **stack)
 {
-	t_list *smallest;
-	t_list *current;
+	t_list	*smallest;
+	t_list	*current;
 
 	if (!stack || !*stack)
 		return (NULL);
@@ -54,24 +54,24 @@ t_list	*find_smallest_value(t_list **stack)
 
 t_list	*find_biggest(t_list **stack)
 {
-	t_list *current;
-	t_list *biggest;
+	t_list	*current;
+	t_list	*biggest;
 
 	if (!stack || !*stack)
 		return (NULL);
-		biggest = *stack;
-		current = *stack;
-		while (current)
-		{
-			if (current -> value > biggest ->value)
-				biggest = current;
-			current = current ->next;
-		}
+	biggest = *stack;
+	current = *stack;
+	while (current)
+	{
+		if (current -> value > biggest ->value)
+			biggest = current;
+		current = current ->next;
+	}
 	return (biggest);
 
 }
 
-void push_swap(t_list **stack_a, t_list **stack_b, int len_a)
+void	push_swap(t_list **stack_a, t_list **stack_b, int len_a)
 {
 	t_list	*smallest;
 
@@ -79,11 +79,11 @@ void push_swap(t_list **stack_a, t_list **stack_b, int len_a)
 		sort_for_five(stack_a);
 	else
 	{
-		while(len_a-- > 3)
+		while (len_a-- > 3)
 			pb(stack_b, stack_a);
 	}
 	mini_sort(stack_a);
-	while(*stack_b)
+	while (*stack_b)
 	{
 		set_nodes(*stack_a, *stack_b);
 		sort_nodes(stack_a, stack_b);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_nodes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
+/*   By: mknoll <mknoll@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:58:08 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/03/04 10:52:05 by moritzknoll      ###   ########.fr       */
+/*   Updated: 2025/03/04 12:41:18 by mknoll           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,34 +18,47 @@ void	set_target_node(t_list *stack_a, t_list *stack_b)
 	t_list	*target_node;
 	long	best_match_index;
 
-	target_node = NULL;
 	while (stack_b)
 	{
 		best_match_index = LONG_MAX;
 		current_a = stack_a;
+		target_node = NULL; // Reset target node for each element in stack_b
+
 		while (current_a)
 		{
-			if (current_a ->value > stack_b ->value
-					&& current_a -> value < best_match_index)
+			if (current_a->value > stack_b->value && current_a->value < best_match_index)
 			{
-				best_match_index = current_a ->value;
-				target_node->value = current_a -> value;
+				best_match_index = current_a->value;
+				target_node = current_a;  // Corrected: Assign the pointer, not modify value
 			}
-			current_a = current_a -> next;
+			current_a = current_a->next;
 		}
+
 		if (LONG_MAX == best_match_index)
-			stack_b ->target = find_smallest_value(&stack_a);
+		{
+			stack_b->target = find_smallest_value(&stack_a);
+			if (!stack_b->target) // Check if find_smallest_value returns NULL
+			{
+				fprintf(stderr, "Error: Smallest value not found.\n");
+				return;
+			}
+		}
 		else
-			stack_b -> target = target_node;
-		stack_b = stack_b ->next;
+			stack_b->target = target_node;
+
+		// ✅ Print debug statement inside the loop
+		printf("For Node %d in Stack_B, Target in Stack_A: %d\n", 
+		       stack_b->value, stack_b->target->value);
+
+		stack_b = stack_b->next;
 	}
-	printf("For Node %d in Stack_B, Target in Stack_A: %d\n", stack_b->value, stack_b->target->value);
 }
+
 
 void	set_current_position(t_list *stack)
 {
-	int i;
-	int middle;
+	int	i;
+	int	middle;
 
 	i = 0;
 	if (stack == NULL)
@@ -62,26 +75,39 @@ void	set_current_position(t_list *stack)
 		i++;
 	}
 }
+
 void	set_price(t_list *stack_a, t_list *stack_b)
 {
-	int len_a;
-	int len_b;
+    int len_a;
+    int len_b;
 
-	len_a = stack_len(stack_a);
-	len_b = stack_len(stack_b);
-	while (stack_b)
-	{
-		stack_b->price = stack_b->current_pos;;
-		if (!(stack_b -> above_median))
-			stack_b->price = len_b - (stack_b->current_pos);
-		if (stack_b->target -> above_median)
-			stack_a->price += stack_b->target->current_pos;
-		else
-			stack_b->price += len_a - (stack_b->target->current_pos);
-		stack_b = stack_b -> next;
-	}
-	printf("Node %d in Stack_B, Price: %d\n", stack_b->value, stack_b->price);
+    len_a = stack_len(stack_a);
+    len_b = stack_len(stack_b);
+
+    while (stack_b)
+    {
+        stack_b->price = stack_b->current_pos;
+
+        if (!(stack_b->above_median))
+            stack_b->price = len_b - (stack_b->current_pos);
+
+        if (stack_b->target) // ✅ Prevent NULL pointer access
+        {
+            if (stack_b->target->above_median)
+                stack_b->price += stack_b->target->current_pos;
+            else
+                stack_b->price += len_a - (stack_b->target->current_pos);
+        }
+        else
+        {
+            fprintf(stderr, "Error: stack_b->target is NULL for node %d\n", stack_b->value);
+        }
+
+        printf("Node %d in Stack_B, Price: %d\n", stack_b->value, stack_b->price);
+        stack_b = stack_b->next; // ✅ Move next node safely
+    }
 }
+
 
 void	set_cheapest(t_list	*stack_b)
 {
