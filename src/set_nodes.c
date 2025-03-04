@@ -6,7 +6,7 @@
 /*   By: mknoll <mknoll@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:58:08 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/03/04 12:50:00 by mknoll           ###   ########.fr       */
+/*   Updated: 2025/03/04 13:18:27 by mknoll           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ void	set_price(t_list *stack_a, t_list *stack_b)
 		stack_b = stack_b->next;
 	}
 }
-
 
 void	set_cheapest(t_list	*stack_b)
 {

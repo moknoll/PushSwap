@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   sort_small.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
+/*   By: mknoll <mknoll@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 09:56:36 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/03/04 12:12:51 by moritzknoll      ###   ########.fr       */
+/*   Updated: 2025/03/04 13:11:13 by mknoll           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pushswap.h"
 
-int sorted(t_list *stack)
+int	sorted(t_list *stack)
 {
 	if (!stack || !stack->next)
 		return (1);
@@ -32,17 +32,17 @@ void	mini_sort(t_list **stack_a)
 	biggest = find_biggest(stack_a);
 	if (*stack_a == biggest)
 		ra(stack_a);
-	else if ((*stack_a) -> next == biggest)
+	else if ((*stack_a)-> next == biggest)
 		rra(stack_a);
-	if ((*stack_a) -> value > (*stack_a)->next->value)
+	if ((*stack_a)-> value > (*stack_a)->next->value)
 		sa(stack_a);
 }
 
-int find_min_index(t_list *stack)
+int	find_min_index(t_list *stack)
 {
-	int min_value;
-	int min_index;
-	int i;
+	int	min_value;
+	int	min_index;
+	int	i;
 
 	if (!stack)
 		return (-1);
@@ -64,10 +64,10 @@ int find_min_index(t_list *stack)
 
 void	move_min_to_top(t_list **stack, int min_pos)
 {
-	int size;
+	int	size;
 
 	size = ft_lstsize(*stack);
-	if (min_pos <= size/2)
+	if (min_pos <= size / 2)
 	{
 		while (min_pos > 0)
 		{
@@ -77,7 +77,7 @@ void	move_min_to_top(t_list **stack, int min_pos)
 	}
 	else
 	{
-		while(min_pos < size)
+		while (min_pos < size)
 		{
 			rra(stack);
 			min_pos++;
@@ -85,11 +85,11 @@ void	move_min_to_top(t_list **stack, int min_pos)
 	}
 }
 
-void sort_for_five(t_list **stack_a)
+void	sort_for_five(t_list **stack_a)
 {
-	t_list *stack_b;
-	int size;
-	int min_pos;
+	t_list	*stack_b;
+	int		size;
+	int		min_pos;
 
 	stack_b = NULL;
 	size = ft_lstsize(*stack_a);
@@ -106,4 +106,3 @@ void sort_for_five(t_list **stack_a)
 	pa(stack_a, &stack_b);
 	pa(stack_a, &stack_b);
 }
-

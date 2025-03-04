@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -I../libft
 LDFLAGS = -L../libft -lft
 MAKEFLAGS += --silent
-SRC = swap_operations.c push_operations.c rotate_operations.c main.c rrotate_operations.c parsing.c parsing_utils.c algorithm.c set_nodes.c sort_nodes.c sort_small.c
+SRC = swap_operations.c push_operations.c rotate_operations.c main.c rrotate_operations.c parsing.c parsing_utils.c algorithm.c set_nodes.c sort_nodes.c sort_small.c more_utils.c
 OBJ = $(SRC:.c=.o)
 NAME = push_swap
 

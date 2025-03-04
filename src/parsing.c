@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
+/*   By: mknoll <mknoll@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 09:34:12 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/02/19 20:29:15 by moritzknoll      ###   ########.fr       */
+/*   Updated: 2025/03/04 13:18:16 by mknoll           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,15 @@ int	*parsing_str(int *arr_size, char *str)
 	return (numbers);
 }
 
-int *convert_and_check(char **result, int *numbers, int *j)
+int	*convert_and_check(char **result, int *numbers, int *j)
 {
-	int k;
+	int	k;
 
 	k = 0;
 	while (result[k])
 	{
 		if (!check_number(result[k])
-				|| !check_int_range(result[k]))
+			|| !check_int_range(result[k]))
 			return (free_tab(result), free(numbers), NULL);
 		numbers[*j] = ft_atoi(result[k]);
 		free(result[k]);
@@ -83,42 +83,33 @@ int	*parsing_args(int *arr_size, int argc, char *argv[])
 	return (numbers);
 }
 
-t_list *arr_to_list(int *numbers)
+t_list	*arr_to_list(int *numbers)
 {
-    int i;
-    t_list *head;
-    t_list *new_node;
-    t_list *temp;
+	int		i;
+	t_list	*head;
+	t_list	*new_node;
+	t_list	*temp;
 
-    head = NULL;
-    i = 0;
-
-    while (numbers[i] != '\0')  // Du solltest hier sicherstellen, dass du das Ende des Arrays richtig behandelst.
-    {
-        new_node = malloc(sizeof(t_list));
-        if (!new_node)
-            return (NULL);  // Falls malloc fehlschlägt, gib NULL zurück
-
-        new_node->value = numbers[i];
-        new_node->index = i;  // Index der Zahl im Array (optional, falls du ihn brauchst)
-        new_node->next = NULL;
-        // Wenn die Liste leer ist, mache das neue Element zum Kopf
-        if (!head)
-            head = new_node;
-        else
-        {
-            // Wenn die Liste nicht leer ist, hänge das neue Element ans Ende
-            temp = head;
-            while (temp->next)  // Finde das letzte Element der Liste
-                temp = temp->next;
-
-            temp->next = new_node;  // Hänge das neue Element ans Ende der Liste
-        }
-
-        i++;
-    }
-
-    return (head);
+	head = NULL;
+	i = 0;
+	while (numbers[i] != '\0')
+	{
+		new_node = malloc(sizeof(t_list));
+		if (!new_node)
+			return (NULL);
+		new_node->value = numbers[i];
+		new_node->index = i;
+		new_node->next = NULL;
+		if (!head)
+			head = new_node;
+		else
+		{
+			temp = head;
+			while (temp->next)
+				temp = temp->next;
+			temp->next = new_node;
+		}
+		i++;
+	}
+	return (head);
 }
-
-

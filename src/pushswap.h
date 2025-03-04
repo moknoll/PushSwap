@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pushswap.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
+/*   By: mknoll <mknoll@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 10:35:17 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/03/04 12:09:33 by moritzknoll      ###   ########.fr       */
+/*   Updated: 2025/03/04 13:24:20 by mknoll           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 
 # include "../libft/libft.h"
 # include <limits.h>
-
-extern int operation_count;
-void increment_operation_count();
 
 // Util functions
 t_list	*ft_lstnew(int value);
@@ -67,7 +64,7 @@ t_list	*find_biggest(t_list **stack);
 //algorithm
 int		stack_len(t_list *stack);
 void	set_nodes(t_list *stack_a, t_list *stack_b);
-void	push_swap(t_list **stack_a, t_list **stack_b, int len_a );
+void	push_swap(t_list **stack_a, t_list **stack_b);
 t_list	*find_smallest_value(t_list **stack);
 
 //set_nodes
@@ -76,10 +73,10 @@ void	set_current_position(t_list *stack);
 void	set_price(t_list *stack_a, t_list *stack_b);
 void	set_cheapest(t_list	*stack_b);
 
-
 //sort_nodes
 t_list	*get_cheapest(t_list *stack);
-void 	reverse_rotate_both(t_list **stack_a, t_list **stack_b, t_list *cheapest);
+void	reverse_rotate_both(t_list **stack_a,
+			t_list **stack_b, t_list *cheapest);
 void	rotate_both(t_list **stack_a, t_list **stack_b, t_list *cheapest);
 void	finish_sorting(t_list **stack, t_list *top, char stack_name);
 void	sort_nodes(t_list **stack_a, t_list **stack_b);

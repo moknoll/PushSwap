@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   sort_nodes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
+/*   By: mknoll <mknoll@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 14:48:53 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/03/04 11:46:30 by moritzknoll      ###   ########.fr       */
+/*   Updated: 2025/03/04 13:20:07 by mknoll           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "pushswap.h"
+#include "pushswap.h"
 
-t_list *get_cheapest(t_list *stack)
+t_list	*get_cheapest(t_list *stack)
 {
 	while (stack)
 	{
@@ -31,7 +31,8 @@ void	rotate_both(t_list **stack_a, t_list **stack_b, t_list *cheapest)
 	set_current_position(*stack_b);
 }
 
-void reverse_rotate_both(t_list **stack_a, t_list **stack_b, t_list *cheapest)
+void	reverse_rotate_both(t_list **stack_a,
+		t_list **stack_b, t_list *cheapest)
 {
 	while (*stack_a != cheapest->target && *stack_b != cheapest)
 		rrr(stack_a, stack_b);
@@ -66,13 +67,12 @@ void	sort_nodes(t_list **stack_a, t_list **stack_b)
 
 	cheapest_node = get_cheapest(*stack_b);
 	if (cheapest_node->above_median
-			&& cheapest_node -> target ->above_median)
-			rotate_both(stack_a, stack_b, cheapest_node);
+		&& cheapest_node -> target ->above_median)
+		rotate_both(stack_a, stack_b, cheapest_node);
 	else if (!(cheapest_node ->above_median)
-			&& !(cheapest_node -> target ->above_median))
-			reverse_rotate_both(stack_a, stack_b, cheapest_node);
+		&& !(cheapest_node -> target ->above_median))
+		reverse_rotate_both(stack_a, stack_b, cheapest_node);
 	finish_sorting(stack_b, cheapest_node, 'b');
 	finish_sorting(stack_a, cheapest_node->target, 'a');
 	pa(stack_a, stack_b);
-	print_list(*stack_a);
 }

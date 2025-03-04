@@ -6,7 +6,7 @@
 /*   By: mknoll <mknoll@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:47:53 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/03/04 12:50:11 by mknoll           ###   ########.fr       */
+/*   Updated: 2025/03/04 13:25:52 by mknoll           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,14 @@ t_list	*find_biggest(t_list **stack)
 		current = current ->next;
 	}
 	return (biggest);
-
 }
 
-void	push_swap(t_list **stack_a, t_list **stack_b, int len_a)
+void	push_swap(t_list **stack_a, t_list **stack_b)
 {
 	t_list	*smallest;
+	int		len_a;
 
+	len_a = stack_len(*stack_a);
 	if (len_a == 5)
 		sort_for_five(stack_a);
 	else
@@ -97,4 +98,3 @@ void	push_swap(t_list **stack_a, t_list **stack_b, int len_a)
 		while (*stack_a != smallest)
 			rra(stack_a);
 }
-
