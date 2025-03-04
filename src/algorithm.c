@@ -6,15 +6,15 @@
 /*   By: mknoll <mknoll@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:47:53 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/03/04 12:26:11 by mknoll           ###   ########.fr       */
+/*   Updated: 2025/03/04 12:50:11 by mknoll           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "pushswap.h"
+#include "pushswap.h"
 
 int	stack_len(t_list *stack)
 {
-	int len;
+	int	len;
 
 	len = 0;
 	while (stack)

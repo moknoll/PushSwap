@@ -6,11 +6,11 @@
 /*   By: mknoll <mknoll@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:58:08 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/03/04 12:41:18 by mknoll           ###   ########.fr       */
+/*   Updated: 2025/03/04 12:50:00 by mknoll           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "pushswap.h"
+#include "pushswap.h"
 
 void	set_target_node(t_list *stack_a, t_list *stack_b)
 {
@@ -22,38 +22,24 @@ void	set_target_node(t_list *stack_a, t_list *stack_b)
 	{
 		best_match_index = LONG_MAX;
 		current_a = stack_a;
-		target_node = NULL; // Reset target node for each element in stack_b
-
+		target_node = NULL;
 		while (current_a)
 		{
-			if (current_a->value > stack_b->value && current_a->value < best_match_index)
+			if (current_a->value > stack_b->value
+				&& current_a->value < best_match_index)
 			{
 				best_match_index = current_a->value;
-				target_node = current_a;  // Corrected: Assign the pointer, not modify value
+				target_node = current_a;
 			}
 			current_a = current_a->next;
 		}
-
 		if (LONG_MAX == best_match_index)
-		{
 			stack_b->target = find_smallest_value(&stack_a);
-			if (!stack_b->target) // Check if find_smallest_value returns NULL
-			{
-				fprintf(stderr, "Error: Smallest value not found.\n");
-				return;
-			}
-		}
 		else
 			stack_b->target = target_node;
-
-		// ✅ Print debug statement inside the loop
-		printf("For Node %d in Stack_B, Target in Stack_A: %d\n", 
-		       stack_b->value, stack_b->target->value);
-
 		stack_b = stack_b->next;
 	}
 }
-
 
 void	set_current_position(t_list *stack)
 {
@@ -78,34 +64,25 @@ void	set_current_position(t_list *stack)
 
 void	set_price(t_list *stack_a, t_list *stack_b)
 {
-    int len_a;
-    int len_b;
+	int	len_a;
+	int	len_b;
 
-    len_a = stack_len(stack_a);
-    len_b = stack_len(stack_b);
-
-    while (stack_b)
-    {
-        stack_b->price = stack_b->current_pos;
-
-        if (!(stack_b->above_median))
-            stack_b->price = len_b - (stack_b->current_pos);
-
-        if (stack_b->target) // ✅ Prevent NULL pointer access
-        {
-            if (stack_b->target->above_median)
-                stack_b->price += stack_b->target->current_pos;
-            else
-                stack_b->price += len_a - (stack_b->target->current_pos);
-        }
-        else
-        {
-            fprintf(stderr, "Error: stack_b->target is NULL for node %d\n", stack_b->value);
-        }
-
-        printf("Node %d in Stack_B, Price: %d\n", stack_b->value, stack_b->price);
-        stack_b = stack_b->next; // ✅ Move next node safely
-    }
+	len_a = stack_len(stack_a);
+	len_b = stack_len(stack_b);
+	while (stack_b)
+	{
+		stack_b->price = stack_b->current_pos;
+		if (!(stack_b->above_median))
+			stack_b->price = len_b - (stack_b->current_pos);
+		if (stack_b->target)
+		{
+			if (stack_b->target->above_median)
+				stack_b->price += stack_b->target->current_pos;
+			else
+				stack_b->price += len_a - (stack_b->target->current_pos);
+		}
+		stack_b = stack_b->next;
+	}
 }
 
 
@@ -113,10 +90,11 @@ void	set_cheapest(t_list	*stack_b)
 {
 	long	best_fit_value;
 	t_list	*best_fit_node;
-	if (stack_b ==  NULL)
+
+	if (stack_b == NULL)
 		return ;
 	best_fit_value = LONG_MAX;
-	while(stack_b)
+	while (stack_b)
 	{
 		if (stack_b -> price < best_fit_value)
 		{
@@ -125,6 +103,5 @@ void	set_cheapest(t_list	*stack_b)
 		}
 		stack_b = stack_b -> next;
 	}
-	printf("Cheapest Node in Stack_B: %d\n", best_fit_node->value);
 	best_fit_node->cheapest = true;
 }
