@@ -6,7 +6,7 @@
 /*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:53:23 by mknoll            #+#    #+#             */
-/*   Updated: 2025/02/17 12:08:48 by moritzknoll      ###   ########.fr       */
+/*   Updated: 2025/02/27 15:19:59 by moritzknoll      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #  define BUFFER_SIZE 42
 # endif
 # include <stdio.h>
+# include <stdbool.h>
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
@@ -57,7 +58,13 @@ int		ft_isprint(int c);
 typedef struct s_list
 {
 	int			value;
+	int			price;
 	int			index;
+	int			current_pos;
+	bool		cheapest;
+	bool		above_median;
+	struct s_list	*target;
+	struct s_list	*prev;
 	struct s_list	*next;
 }	t_list;
 
