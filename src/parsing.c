@@ -6,7 +6,7 @@
 /*   By: mknoll <mknoll@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 09:34:12 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/03/04 13:18:16 by mknoll           ###   ########.fr       */
+/*   Updated: 2025/03/07 13:33:13 by mknoll           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,12 @@ int	*convert_and_check(char **result, int *numbers, int *j)
 	k = 0;
 	while (result[k])
 	{
-		if (!check_number(result[k])
-			|| !check_int_range(result[k]))
-			return (free_tab(result), free(numbers), NULL);
+		if (!check_number(result[k]) || !check_int_range(result[k]))
+		{
+			free_tab(result);
+			free(numbers);
+			return (NULL);
+		}
 		numbers[*j] = ft_atoi(result[k]);
 		free(result[k]);
 		(*j)++;
@@ -83,6 +86,19 @@ int	*parsing_args(int *arr_size, int argc, char *argv[])
 	return (numbers);
 }
 
+t_list	*create_new_node(int value, int index)
+{
+	t_list	*new_node;
+
+	new_node = malloc(sizeof(t_list));
+	if (!new_node)
+		return (NULL);
+	new_node -> value = value;
+	new_node -> index = index;
+	new_node -> next = NULL;
+	return (new_node);
+}
+
 t_list	*arr_to_list(int *numbers)
 {
 	int		i;
@@ -92,14 +108,9 @@ t_list	*arr_to_list(int *numbers)
 
 	head = NULL;
 	i = 0;
-	while (numbers[i] != '\0')
+	while (numbers[i])
 	{
-		new_node = malloc(sizeof(t_list));
-		if (!new_node)
-			return (NULL);
-		new_node->value = numbers[i];
-		new_node->index = i;
-		new_node->next = NULL;
+		new_node = create_new_node(numbers[i], i);
 		if (!head)
 			head = new_node;
 		else

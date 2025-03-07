@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
+/*   By: mknoll <mknoll@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 09:11:08 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/03/05 10:17:38 by moritzknoll      ###   ########.fr       */
+/*   Updated: 2025/03/07 13:28:04 by mknoll           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,36 @@
 
 t_list	*check_and_convert(int argc, char *argv[])
 {
-	int size;
-	t_list *stack_a;
-	int *numbers;
+	int		size;
+	t_list	*stack_a;
+	int		*numbers;
+	int		lst_size;
 
-	if (argc < 2)
-		ft_putendl_fd("Error", 1);
 	if (argc == 2)
 		numbers = parsing_str(&size, argv[1]);
 	else
 		numbers = parsing_args(&size, argc, argv);
+	if (!numbers || size == 0)
+	{
+		ft_putendl_fd("Error", 2);
+		exit(1);
+	}
 	stack_a = arr_to_list(numbers);
+	lst_size = ft_lstsize(stack_a);
+	if (lst_size == 1)
+	{
+		ft_putendl_fd("Error", 2);
+		exit(1);
+	}
 	free(numbers);
-	return(stack_a);
+	return (stack_a);
 }
 
 int	main(int argc, char *argv[])
 {
 	t_list	*stack_a;
 	t_list	*stack_b;
-	int size;
+	int		size;
 
 	stack_b = NULL;
 	stack_a = check_and_convert(argc, argv);

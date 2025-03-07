@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pushswap.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moritzknoll <moritzknoll@student.42.fr>    +#+  +:+       +#+        */
+/*   By: mknoll <mknoll@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 10:35:17 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/03/05 10:17:59 by moritzknoll      ###   ########.fr       */
+/*   Updated: 2025/03/07 12:14:14 by mknoll           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,25 +23,6 @@ void	ft_lstadd_front(t_list **stack, t_list *new);
 void	ft_lstadd_back(t_list **stack, t_list *new);
 void	print_list(t_list *list);
 int		ft_lstsize(t_list *head);
-
-//instruction functions
-int		swap(t_list **stack);
-int		push(t_list **stack_to, t_list **stack_from);
-int		rotate(t_list **stack);
-int		reverse_rotate(t_list **stack);
-
-int		sa(t_list **stack_a);
-int		sb(t_list **stack_b);
-int		ss(t_list **stack_a, t_list **stack_b);
-int		pa(t_list **stack_a, t_list **stack_b);
-int		pb(t_list **stack_b, t_list **stack_a);
-int		ra(t_list **stack_a);
-int		rb(t_list **stack_b);
-int		rr(t_list **stack_a, t_list **stack_b);
-int		rra(t_list **stack_a);
-int		rrb(t_list **stack_b);
-int		rrr(t_list **stack_a, t_list **stack_b);
-
 int		check_duplicate(int *numbers, int len);
 int		check_number(char *str);
 void	free_tab(char **arr);
@@ -61,6 +42,24 @@ int		find_min_index(t_list *stack);
 void	free_stack(t_list *stack);
 t_list	*find_biggest(t_list **stack);
 t_list	*check_and_convert(int argc, char *argv[]);
+t_list	*create_new_node(int value, int index);
+
+//instruction functions
+int		swap(t_list **stack);
+int		push(t_list **stack_to, t_list **stack_from);
+int		rotate(t_list **stack);
+int		reverse_rotate(t_list **stack);
+int		sa(t_list **stack_a);
+int		sb(t_list **stack_b);
+int		ss(t_list **stack_a, t_list **stack_b);
+int		pa(t_list **stack_a, t_list **stack_b);
+int		pb(t_list **stack_b, t_list **stack_a);
+int		ra(t_list **stack_a);
+int		rb(t_list **stack_b);
+int		rr(t_list **stack_a, t_list **stack_b);
+int		rra(t_list **stack_a);
+int		rrb(t_list **stack_b);
+int		rrr(t_list **stack_a, t_list **stack_b);
 
 //algorithm
 int		stack_len(t_list *stack);

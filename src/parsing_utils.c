@@ -6,7 +6,7 @@
 /*   By: mknoll <mknoll@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 13:02:45 by mknoll            #+#    #+#             */
-/*   Updated: 2025/03/04 13:22:40 by mknoll           ###   ########.fr       */
+/*   Updated: 2025/03/07 13:33:03 by mknoll           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,17 @@ int	check_number(char *str)
 	i = 0;
 	if (str[i] == '-' || str[i] == '+')
 		i++;
+	if (str[i] == '\0')
+	{
+		ft_putendl_fd("Error", 2);
+		exit(1);
+	}
 	while (str[i])
 	{
 		if (str[i] < '0' || str[i] > '9')
 		{
-			ft_putendl_fd("Error not a number", 1);
-			return (0);
+			ft_putendl_fd("Error", 2);
+			exit(1);
 		}
 		i++;
 	}
@@ -63,7 +68,6 @@ int	check_int_range(char *str)
 	num = ft_atol(str);
 	if (num < INT_MIN || num > INT_MAX)
 	{
-		ft_putendl_fd("Error range", 1);
 		return (0);
 	}
 	return (1);
@@ -81,7 +85,10 @@ int	check_duplicate(int *numbers, int len)
 		while (j < len)
 		{
 			if (numbers[i] == numbers[j])
-				ft_putendl_fd("Error duplicate", 1);
+			{
+				ft_putendl_fd("Error", 2);
+				exit(1);
+			}
 			j++;
 		}
 		i++;
