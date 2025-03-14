@@ -6,7 +6,7 @@
 /*   By: mknoll <mknoll@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 13:02:45 by mknoll            #+#    #+#             */
-/*   Updated: 2025/03/07 13:33:03 by mknoll           ###   ########.fr       */
+/*   Updated: 2025/03/14 14:08:47 by mknoll           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	check_number(char *str)
 		if (str[i] < '0' || str[i] > '9')
 		{
 			ft_putendl_fd("Error", 2);
-			exit(1);
+			break ;
 		}
 		i++;
 	}
@@ -87,6 +87,7 @@ int	check_duplicate(int *numbers, int len)
 			if (numbers[i] == numbers[j])
 			{
 				ft_putendl_fd("Error", 2);
+				free(numbers);
 				exit(1);
 			}
 			j++;

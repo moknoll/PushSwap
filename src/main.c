@@ -6,7 +6,7 @@
 /*   By: mknoll <mknoll@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 09:11:08 by moritzknoll       #+#    #+#             */
-/*   Updated: 2025/03/07 13:28:04 by mknoll           ###   ########.fr       */
+/*   Updated: 2025/03/14 14:09:14 by mknoll           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ t_list	*check_and_convert(int argc, char *argv[])
 	int		size;
 	t_list	*stack_a;
 	int		*numbers;
-	int		lst_size;
 
 	if (argc == 2)
 		numbers = parsing_str(&size, argv[1]);
@@ -26,15 +25,10 @@ t_list	*check_and_convert(int argc, char *argv[])
 	if (!numbers || size == 0)
 	{
 		ft_putendl_fd("Error", 2);
+		free(numbers);
 		exit(1);
 	}
-	stack_a = arr_to_list(numbers);
-	lst_size = ft_lstsize(stack_a);
-	if (lst_size == 1)
-	{
-		ft_putendl_fd("Error", 2);
-		exit(1);
-	}
+	stack_a = arr_to_list(numbers, size);
 	free(numbers);
 	return (stack_a);
 }
